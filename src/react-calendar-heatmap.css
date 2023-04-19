@@ -1,0 +1,158 @@
+/*
+ * react-calendar-heatmap styles
+ *
+ * All of the styles in this file are optional and configurable!
+ * The github and gitlab color scales are provided for reference.
+ */
+
+.react-calendar-heatmap {
+  width: 100%;
+  height: 300px;
+}
+
+.react-calendar-heatmap text {
+  font-size: 10px;
+  fill: #000;
+  padding-right: 20px;
+}
+
+.react-calendar-heatmap-weekday-labels {
+  padding-right: 10px;
+}
+
+.react-calendar-heatmap .react-calendar-heatmap-small-text {
+  font-size: 5px;
+}
+
+.react-calendar-heatmap rect:hover {
+  stroke: #555;
+  stroke-width: 1px;
+}
+
+/*
+ * Default color scale
+ */
+
+.react-calendar-heatmap .color-empty {
+  fill: #eeeeee;
+}
+
+.react-calendar-heatmap .color-filled {
+  fill: #8cc665;
+}
+
+/*
+ * Github color scale
+ */
+
+.react-calendar-heatmap .color-github-0 {
+  fill: #eeeeee;
+}
+.react-calendar-heatmap .color-github-1 {
+  fill: #d6e685;
+}
+.react-calendar-heatmap .color-github-2 {
+  fill: #8cc665;
+}
+.react-calendar-heatmap .color-github-3 {
+  fill: #44a340;
+}
+.react-calendar-heatmap .color-github-4 {
+  fill: #1e6823;
+}
+
+/*
+ * https://colorkit.io/#EeEeEe-#1e6823-18
+ */
+
+.react-calendar-heatmap .color-custom-0 {
+  fill: #eeeeee;
+}
+
+.react-calendar-heatmap .color-custom-1 {
+  fill: #e2e6e2;
+}
+
+.react-calendar-heatmap .color-custom-2 {
+  fill: #d6ded6;
+}
+
+.react-calendar-heatmap .color-custom-3 {
+  fill: #cad6ca;
+}
+
+.react-calendar-heatmap .color-custom-4 {
+  fill: #becebe;
+}
+
+.react-calendar-heatmap .color-custom-5 {
+  fill: #b2c6b2;
+}
+
+.react-calendar-heatmap .color-custom-6 {
+  fill: #a6bea6;
+}
+
+.react-calendar-heatmap .color-custom-7 {
+  fill: #9ab69a;
+}
+
+.react-calendar-heatmap .color-custom-8 {
+  fill: #8eae8e;
+}
+
+.react-calendar-heatmap .color-custom-9 {
+  fill: #82a682;
+}
+
+.react-calendar-heatmap .color-custom-10 {
+  fill: #769e76;
+}
+
+.react-calendar-heatmap .color-custom-11 {
+  fill: #6a966a;
+}
+
+.react-calendar-heatmap .color-custom-12 {
+  fill: #5e8e5e;
+}
+
+.react-calendar-heatmap .color-custom-13 {
+  fill: #528652;
+}
+
+.react-calendar-heatmap .color-custom-14 {
+  fill: #467e46;
+}
+
+.react-calendar-heatmap .color-custom-15 {
+  fill: #3a763a;
+}
+
+.react-calendar-heatmap .color-custom-16 {
+  fill: #2e6e2e;
+}
+
+.react-calendar-heatmap .color-custom-17 {
+  fill: #1e6823;
+}
+
+/*
+ * Gitlab color scale
+ */
+
+.react-calendar-heatmap .color-gitlab-0 {
+  fill: #ededed;
+}
+.react-calendar-heatmap .color-gitlab-1 {
+  fill: #acd5f2;
+}
+.react-calendar-heatmap .color-gitlab-2 {
+  fill: #7fa8d1;
+}
+.react-calendar-heatmap .color-gitlab-3 {
+  fill: #49729b;
+}
+.react-calendar-heatmap .color-gitlab-4 {
+  fill: #254e77;
+}
