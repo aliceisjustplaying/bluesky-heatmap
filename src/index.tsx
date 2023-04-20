@@ -127,6 +127,7 @@ function App() {
     <div>
       <h1>Bluesky Posts Heatmap</h1>
       <div id="actor">
+        🦋&nbsp;
         <input type="text" placeholder="Enter a BlueSky DID" onChange={(e) => setActor(e.target.value)} value={actor} />
         <input
           type="button"
