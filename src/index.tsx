@@ -9,7 +9,6 @@ import './styles.css';
 import * as bsky from '@atproto/api';
 const { BskyAgent } = bsky;
 import type { AtpSessionEvent, AtpSessionData } from '@atproto/api';
-import { config } from './config.js';
 
 let session: AtpSessionData;
 
@@ -141,8 +140,8 @@ function App() {
     if (loginPressed && !ignore) {
       agent
         .login({
-          identifier: config.identifier,
-          password: config.password,
+          identifier: username,
+          password: password,
         })
         .then(() => {
           setLoggedIn(true);
