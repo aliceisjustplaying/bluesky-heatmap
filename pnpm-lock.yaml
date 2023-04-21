@@ -21,6 +21,9 @@ devDependencies:
   '@types/react':
     specifier: ^18.0.37
     version: 18.0.37
+  '@types/react-calendar-heatmap':
+    specifier: ^1.6.3
+    version: 1.6.3
   '@types/react-dom':
     specifier: ^18.0.11
     version: 18.0.11
@@ -509,6 +512,12 @@ packages:
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
+    dev: true
+
+  /@types/react-calendar-heatmap@1.6.3:
+    resolution: {integrity: sha512-C6hN9Nl0NBqeJEkivwwf/bvWNoPwpwGSNABwYl0yHD20rClSJqRgYoGPKDIn8QqoYHGJsTFJdFbBAZRPlJ/+qg==}
+    dependencies:
+      '@types/react': 18.0.37
     dev: true
 
   /@types/react-dom@18.0.11:
