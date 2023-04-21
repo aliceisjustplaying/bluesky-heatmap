@@ -23,7 +23,7 @@ export const App = () => {
   useMemo(() => {
     const agent = new BskyAgent({
       service: 'https://bsky.social',
-      persistSession: (evt: AtpSessionEvent, sess?: AtpSessionData) => {
+      persistSession: (_evt: AtpSessionEvent, sess?: AtpSessionData) => {
         setSession(sess!);
       },
     });
