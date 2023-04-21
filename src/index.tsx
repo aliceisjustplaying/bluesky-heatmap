@@ -8,18 +8,20 @@ import './react-calendar-heatmap.css';
 import './styles.css';
 import * as bsky from '@atproto/api';
 const { BskyAgent } = bsky;
+import type { AtpSessionEvent, AtpSessionData } from '@atproto/api';
 import { config } from './config.js';
 
+let session: AtpSessionData;
+
+const agent = new BskyAgent({
+  service: 'https://bsky.social',
+  persistSession: (evt: AtpSessionEvent, sess?: AtpSessionData) => {
+    session = sess!;
+  },
+});
+
 async function getData(actor = '') {
-  const agent = new BskyAgent({
-    service: 'https://bsky.social',
-  });
-
-  await agent.login({
-    identifier: config.identifier,
-    password: config.password,
-  });
-
+  await agent.resumeSession(session);
   // source: https://github.com/bluesky-social/atproto/blob/efb1cac2bfc8ccb77c0f4910ad9f3de7370fbebb/packages/bsky/tests/_util.ts#L314
   const paginateAll = async <T extends { cursor?: string }>(
     fn: (cursor?: string) => Promise<T>,
@@ -107,43 +109,94 @@ function App() {
   const [createdAt, setCreatedAt] = useState<any>();
   const [actor, setActor] = useState<any>('');
   const [updated, setUpdated] = useState(actor);
+  const [username, setUsername] = useState<any>('');
+  const [password, setPassword] = useState<any>('');
+  const [loginPressed, setLoginPressed] = useState<any>(false);
+  const [loggedIn, setLoggedIn] = useState<any>(false);
+  const [isLoading, setIsLoading] = useState<any>(false);
 
   useEffect(() => {
     let ignore = false;
+    setPosts([]);
 
-    getData(actor).then((data) => {
-      if (!ignore) {
-        setPosts(data.data);
-        setMax(data.max);
-        setCreatedAt(new Date(data.createdAt));
-      }
-    });
+    if (loggedIn) {
+      setIsLoading(true);
+      getData(actor).then((data) => {
+        if (!ignore) {
+          setPosts(data.data);
+          setMax(data.max);
+          setCreatedAt(new Date(data.createdAt));
+          setIsLoading(false);
+        }
+      });
+    }
 
     return () => {
       ignore = true;
     };
-  }, [updated, max]);
+  }, [updated, loggedIn]);
+
+  useEffect(() => {
+    let ignore = false;
+    if (loginPressed && !ignore) {
+      agent
+        .login({
+          identifier: config.identifier,
+          password: config.password,
+        })
+        .then(() => {
+          setLoggedIn(true);
+        });
+    }
+    return () => {
+      ignore = true;
+    };
+  }, [loginPressed]);
   return (
     <div>
       <h1>Bluesky Posts Heatmap</h1>
-      <div id="actor">
-        🦋&nbsp;
-        <input type="text" placeholder="Enter a BlueSky DID" onChange={(e) => setActor(e.target.value)} value={actor} />
+      {loggedIn === false ? (
+        <>
+          <div id="loginMessage">Please log in</div>
+          <br />
+        </>
+      ) : null}
+      <div id="login">
+        Username:&nbsp;
+        <input type="text" placeholder="username" onChange={(e) => setUsername(e.target.value)} value={username} />
+        <br />
+        Password:&nbsp;
+        <input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} value={password} />
         <input
           type="button"
-          value="Submit"
+          value="login"
+          onClick={() => {
+            setLoginPressed(true);
+            setActor(username);
+          }}
+          disabled={loggedIn}
+        />
+        <br />
+        <br />
+      </div>
+      <div id="actor">
+        🦋&nbsp;
+        <input type="text" placeholder="Bluesky username" onChange={(e) => setActor(e.target.value)} value={actor} />
+        <input
+          type="button"
+          value="Get heatmap"
           onClick={() => {
             setMax(0);
             setUpdated(actor);
           }}
+          disabled={!loggedIn || isLoading}
         />
       </div>
       <div>
         <br />
       </div>
-      {max === 0 ? (
-        <p>Loading...</p>
-      ) : (
+      {isLoading ? <div>Loading...</div> : null}
+      {posts.length === 0 ? null : (
         <>
           <CalendarHeatmap
             startDate={createdAt}

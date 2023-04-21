@@ -17,3 +17,7 @@ h1 {
 #actor {
   text-align: center;
 }
+
+#loginMessage {
+  color: red;
+}
