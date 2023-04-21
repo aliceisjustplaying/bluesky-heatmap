@@ -4,6 +4,9 @@ dependencies:
   '@atproto/api':
     specifier: ^0.2.7
     version: 0.2.7
+  github-fork-ribbon-css:
+    specifier: ^0.2.3
+    version: 0.2.3
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -1054,6 +1057,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /github-fork-ribbon-css@0.2.3:
+    resolution: {integrity: sha512-cmGBV4sivRwmnteSOkqMjN2cnP5/J1SU5aDCVYsBWHmDokZ/JjwGEkduCxY9IULHdCPpw1WSk5Cy8N1LF6jOEw==}
+    dev: false
 
   /glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}

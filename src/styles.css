@@ -21,3 +21,5 @@ h1 {
 #loginMessage {
   color: red;
 }
+
+.github-fork-ribbon:before { background-color: #c00; }
