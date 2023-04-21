@@ -5,4 +5,4 @@ COPY . /app
 WORKDIR /app
 RUN pnpm i && pnpm run build
 FROM pierrezemb/gostatic
-COPY --from=builder /app/build/ /srv/http/
+COPY --from=builder /app/dist/ /srv/http/
