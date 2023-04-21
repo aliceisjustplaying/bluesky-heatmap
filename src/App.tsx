@@ -71,7 +71,7 @@ export const App = () => {
 
   return (
     <div>
-      <h1>Bluesky Posts Heatmap</h1>
+      <h1>Bluesky Posts Heatmap Generator</h1>
       {loggedIn === false ? (
         <>
           <div id="loginMessage">Please log in</div>
