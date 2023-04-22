@@ -94,6 +94,15 @@ export const App = () => {
         <br />
         <br />
       </form>
+      <div id="passwordNotice" style={loggedIn ? { display: 'none' } : { display: 'block' }}>
+        Note: your password is sent directly to Bluesky and is only stored in the browser.
+        <br />
+        However you can now{' '}
+        <a href="https://staging.bsky.app/settings/app-passwords" target="_blank">
+          generate App Passwords on the website
+        </a>{' '}
+        (and soon in the app) to use instead of your main password.
+      </div>
       <div id="actor">
         🦋&nbsp;
         <input

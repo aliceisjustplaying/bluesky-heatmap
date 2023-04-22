@@ -20,6 +20,14 @@ h1 {
 
 #loginMessage {
   color: red;
+  text-align: center;
+  padding-top: 10px;
 }
 
 .github-fork-ribbon:before { background-color: #c00; }
+
+#passwordNotice {
+  font-size: 80%;
+  text-align: center;
+  padding-bottom: 10px;
+}
