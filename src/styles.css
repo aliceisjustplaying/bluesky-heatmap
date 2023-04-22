@@ -12,6 +12,7 @@
 
 h1 {
   text-align: center;
+  margin: 5px;
 }
 
 #actor {
@@ -21,7 +22,6 @@ h1 {
 #loginMessage {
   color: red;
   text-align: center;
-  padding-top: 10px;
 }
 
 .github-fork-ribbon:before { background-color: #c00; }
@@ -30,4 +30,9 @@ h1 {
   font-size: 80%;
   text-align: center;
   padding-bottom: 10px;
+}
+
+#credits {
+  font-size: 80%;
+  text-align: center;
 }
