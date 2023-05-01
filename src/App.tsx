@@ -24,7 +24,6 @@ export const App = () => {
       new BskyAgent({
         service: 'https://bsky.social',
         persistSession: (_evt: AtpSessionEvent, sess?: AtpSessionData) => {
-          console.log('setSession', sess);
           if (sess != null) {
             setSession(sess!);
           }
@@ -36,7 +35,6 @@ export const App = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const loadPosts = useCallback(async () => {
     setIsLoading(true);
-    console.log('loadPosts');
     try {
       const data = await getData(agent!, session!, heatmapSubject);
       setData(data);
