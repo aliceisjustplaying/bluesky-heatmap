@@ -24,7 +24,9 @@ h1 {
   text-align: center;
 }
 
-.github-fork-ribbon:before { background-color: #c00; }
+.github-fork-ribbon:before {
+  background-color: #c00;
+}
 
 #passwordNotice {
   font-size: 80%;
