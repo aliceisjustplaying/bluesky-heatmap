@@ -1,19 +1,15 @@
-import { useState, useMemo, useCallback, FormEvent, ChangeEvent } from 'react';
+import { useState, useMemo, useCallback, ChangeEvent } from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import { Tooltip } from 'react-tooltip';
 import * as bsky from '@atproto/api';
 const { BskyAgent } = bsky;
-import type { AtpSessionEvent, AtpSessionData } from '@atproto/api';
 import { getData } from './atproto.tsx';
 
 type PostsData = Awaited<ReturnType<typeof getData>>;
 
 export const App = () => {
   const [data, setData] = useState<PostsData | undefined>();
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
   const [heatmapSubject, setHeatmapSubject] = useState<string>('');
-  const [session, setSession] = useState<AtpSessionData>();
 
   const posts = data?.data ?? [];
   const max = data?.max ?? 0;
@@ -22,12 +18,7 @@ export const App = () => {
   const agent = useMemo(
     () =>
       new BskyAgent({
-        service: 'https://bsky.social',
-        persistSession: (_evt: AtpSessionEvent, sess?: AtpSessionData) => {
-          if (sess != null) {
-            setSession(sess!);
-          }
-        },
+        service: 'https://api.bsky.app',
       }),
     [],
   );
@@ -36,38 +27,12 @@ export const App = () => {
   const loadPosts = useCallback(async () => {
     setIsLoading(true);
     try {
-      const data = await getData(agent!, session!, heatmapSubject);
+      const data = await getData(agent!, heatmapSubject);
       setData(data);
     } finally {
       setIsLoading(false);
     }
-  }, [agent, session, heatmapSubject]);
-
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const login = useCallback(async () => {
-    await agent!.login({
-      identifier: username,
-      password: password,
-    });
-    setLoggedIn(true);
-  }, [username, password, agent]);
-
-  const handleLoginSubmit = useCallback(
-    async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      await login();
-    },
-    [login],
-  );
-
-  const handleUsernameChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-    setHeatmapSubject(e.target.value);
-  }, []);
-
-  const handlePasswordChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  }, []);
+  }, [agent, heatmapSubject]);
 
   const handleHeatmapSubjectChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setHeatmapSubject(e.target.value);
@@ -76,31 +41,7 @@ export const App = () => {
   return (
     <div>
       <h1>Bluesky Posts Heatmap Generator</h1>
-      {!loggedIn && (
-        <>
-          <div id="loginMessage">Please log in</div>
-          <br />
-        </>
-      )}
-      <form id="login" onSubmit={handleLoginSubmit}>
-        Username:&nbsp;
-        <input type="text" placeholder="username" onChange={handleUsernameChange} value={username} />
-        <br />
-        Password:&nbsp;
-        <input type="password" placeholder="password" onChange={handlePasswordChange} value={password} />
-        <input type="submit" value="login" disabled={loggedIn} />
-        <br />
-        <br />
-      </form>
-      <div id="passwordNotice" style={loggedIn ? { display: 'none' } : { display: 'block' }}>
-        Note: your password is sent directly to Bluesky and is only stored in the browser.
-        <br />
-        However you can now{' '}
-        <a href="https://staging.bsky.app/settings/app-passwords" target="_blank">
-          generate App Passwords on the website
-        </a>{' '}
-        (and soon in the app) to use instead of your main password.
-      </div>
+      <br />
       <div id="actor">
         🦋&nbsp;
         <input
@@ -109,12 +50,13 @@ export const App = () => {
           onChange={handleHeatmapSubjectChange}
           value={heatmapSubject}
         />
-        <input type="button" value="Get heatmap" onClick={loadPosts} disabled={!loggedIn || isLoading} />
+        <input type="button" value="Get heatmap" onClick={loadPosts} disabled={isLoading} />
       </div>
       <div>
         <br />
+        <br />
       </div>
-      {isLoading ? <div>Loading...</div> : null}
+      {isLoading ? <div>Loading... (this might take a minute or two. No, really.)</div> : null}
       {posts.length === 0 || isLoading ? null : (
         <>
           <CalendarHeatmap
