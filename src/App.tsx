@@ -25,9 +25,16 @@ export const App = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const loadPosts = useCallback(async () => {
-    setIsLoading(true);
     try {
-      const data = await getData(agent!, heatmapSubject);
+      let actor: any;
+      try {
+        actor = (await agent.getProfile({ actor: heatmapSubject.trim().replace('@', '') })).data.did;
+      } catch (e) {
+        alert('Invalid username!');
+        return;
+      }
+      setIsLoading(true);
+      const data = await getData(agent!, actor);
       setData(data);
     } finally {
       setIsLoading(false);
