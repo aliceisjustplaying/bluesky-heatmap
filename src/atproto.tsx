@@ -1,8 +1,8 @@
 import * as bsky from '@atproto/api';
 import { getUserCreatedAt, paginateAll } from './helpers.tsx';
 
-export const getData = async (agent: bsky.BskyAgent, actor = '') => {
-  actor = (await agent.getProfile({ actor })).data.did;
+export const getData = async (agent: bsky.BskyAgent, actor: string) => {
+  actor = (await agent.getProfile({ actor: actor.trim().replace('@', '') })).data.did;
 
   // source: https://github.com/bluesky-social/atproto/blob/efb1cac2bfc8ccb77c0f4910ad9f3de7370fbebb/packages/bsky/tests/views/author-feed.test.ts#L94
   const paginator = async (cursor?: string) => {
