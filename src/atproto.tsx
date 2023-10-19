@@ -23,7 +23,7 @@ export const getData = async (agent: bsky.BskyAgent, actor: string) => {
       posts.push(
         ...res.feed.map((e) => ({
           text: (e.post.record as any).text,
-          uri: e.post.uri.replace('app.bsky.feed.', '').replace('at://', 'https://staging.bsky.app/profile/'),
+          uri: e.post.uri.replace('app.bsky.feed.', '').replace('at://', 'https://bsky.app/profile/'),
           likeCount: e.post.likeCount,
           did: e.post.author.did,
           handle: e.post.author.handle,
