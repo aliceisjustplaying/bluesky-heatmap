@@ -63,7 +63,7 @@ export const App = () => {
         <br />
         <br />
       </div>
-      {isLoading ? <div>Loading... (this might take a minute or two. No, really.)</div> : null}
+      {isLoading ? <div>Loading... (This might take a minute or two. No, really.)</div> : null}
       {posts.length === 0 || isLoading ? null : (
         <>
           <CalendarHeatmap
